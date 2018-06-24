@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/21 17:24:06 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/06/22 17:51:51 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/06/24 17:19:45 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,9 +121,9 @@ void			set_flags(t_flag *settings, char flag)
 		*settings &= ~FLAG_UB & ~FLAG_LB & ~FLAG_LW & ~FLAG_LQ;
 	else if (flag == 'H' || flag == 'L' || flag == 'P')
 		*settings &= ~FLAG_UH & ~FLAG_UL & ~FLAG_UP;
+	if (flag == 'f')
+		*settings &= FLAG_LA;
+	if (flag == 'n' || flag == 'o')
+		*settings &= FLAG_LL;
 	*settings |= get_flag(flag);
 }
-
-/* ************************************************************************** */
-/* TODO: FLAG_LF should enable FLAG_LA                                        */
-/* ************************************************************************** */

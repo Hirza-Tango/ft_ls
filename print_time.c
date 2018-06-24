@@ -1,38 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   compare_dirent.c                                   :+:      :+:    :+:   */
+/*   print_time.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/22 17:54:54 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/06/24 15:26:16 by dslogrov         ###   ########.fr       */
+/*   Created: 2018/06/24 16:23:34 by dslogrov          #+#    #+#             */
+/*   Updated: 2018/06/24 17:31:03 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ft_ls.h>
 
-int		compare_lc(const t_file_info a, const t_file_info b)
+static int	get_time_difference(time_t then)
 {
+	time_t	now = time(NULL);
+	if (now - (time_t)60*60*24*30.42*6 > then)
+		return (1);
 	return (0);
+	//TODO: non-naïve time difference
 }
 
-int		compare_lu(const t_file_info a, const t_file_info b)
+void		print_time(time_t secs)
 {
-	return (0);
-}
+	const char	*str = ctime(secs);
 
-int		compare_uu(const t_file_info a, const t_file_info b)
-{
-	return (0);
-}
-
-int		compare_ut(const t_file_info a, const t_file_info b)
-{
-	return (0);
-}
-
-int		compare_us(const t_file_info a, const t_file_info b)
-{
-	return (0);
+	ft_printf(" %.2s", str + 8);
+	ft_printf(" %.3s", str + 5);
+	if (get_time_difference(secs))
+		ft_printf("  %.4s", str + 20);
+	else
+		ft_printf(" %.5s", str + 11);
 }

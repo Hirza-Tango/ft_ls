@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/21 16:24:11 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/06/22 18:40:07 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/06/24 17:31:18 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,22 @@ typedef struct	s_file_info
 	struct dirent	dirent;
 	struct passwd	passwd;
 	struct group	group;
-	char			*xattr;
+	//char			*xattr;
 }				t_file_info;
 
+int		compare_default(const t_file_info a, const t_file_info b);
+int		compare_lc(const t_file_info a, const t_file_info b);
+int		compare_lu(const t_file_info a, const t_file_info b);
+int		compare_uu(const t_file_info a, const t_file_info b);
+int		compare_us(const t_file_info a, const t_file_info b);
+int		compare_ut(const t_file_info a, const t_file_info b);
+
+void	ls_print_normal(t_list *list, t_flag flags);
+void	ls_print_ll(t_list *list, t_flag flags);
+void	sort_file_list(t_list **list, t_flag flags, const char *location);
 void	set_flags(t_flag *settings, char flag);
 void	ft_ls(const char *location, t_flag flags);
+void	print_permissions(mode_t mode);
+void	print_time(time_t secs);
 
 #endif
