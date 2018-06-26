@@ -3,24 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   list_sorting.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
+/*   By: dslogrov <dslogrov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 14:55:11 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/06/24 14:59:52 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/06/26 17:12:38 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ft_ls.h>
 
-int		compare_default(const t_file_info a, const t_file_info b)
+int		compare_default(const t_file_info *a, const t_file_info *b)
 {
-	return (ft_strcmp(a.dirent.d_name, b.dirent.d_name));
-}
-
-static void	sort_list_by(t_list **list,
-	int (*compare)(const t_file_info, const t_file_info), char reverse)
-{
-//TODO: write sorter
+	return (ft_strcmp(a->dirent.d_name, b->dirent.d_name));
 }
 
 void	sort_file_list(t_list **list, t_flag flags, const char *location)
@@ -29,18 +23,25 @@ void	sort_file_list(t_list **list, t_flag flags, const char *location)
 	
 	if (flags & FLAG_LF)
 		return ;
-	sort_list_by(list, compare_default, reverse);
 	if (flags & FLAG_LT)
 	{
 		if (flags & FLAG_LC)
-			sort_list_by(list, compare_lc, reverse);
+			ft_lstsort(list, (int (*)(const void *, const void *))&compare_lc,
+				reverse);
 		else if (flags & FLAG_LU)
-			sort_list_by(list, compare_lu, reverse);
+			ft_lstsort(list, (int (*)(const void *, const void *))&compare_lu,
+				reverse);
 		else if (flags & FLAG_UU)
-			sort_list_by(list, compare_uu, reverse);
+			ft_lstsort(list, (int (*)(const void *, const void *))&compare_uu,
+				reverse);
 		else
-			sort_list_by(list, compare_ut, reverse);
+			ft_lstsort(list, (int (*)(const void *, const void *))&compare_lt,
+				reverse);
 	}
 	else if (flags & FLAG_US)
-		sort_list_by(list, compare_us, reverse);
+		ft_lstsort(list, (int (*)(const void *, const void *))&compare_us,
+			reverse);
+	else
+		ft_lstsort(list, (int (*)(const void *, const void *))&compare_default,
+			reverse);
 }

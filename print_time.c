@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_time.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
+/*   By: dslogrov <dslogrov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 16:23:34 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/06/24 17:31:03 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/06/26 17:29:56 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	get_time_difference(time_t then)
 
 void		print_time(time_t secs)
 {
-	const char	*str = ctime(secs);
+	const char	*str = ctime(&secs);
 
 	ft_printf(" %.2s", str + 8);
 	ft_printf(" %.3s", str + 5);

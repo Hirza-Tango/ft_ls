@@ -3,14 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   ls_print.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
+/*   By: dslogrov <dslogrov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 15:06:41 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/06/24 17:54:31 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/06/26 17:27:08 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ft_ls.h>
+
+size_t	count_blocks(t_list *list)
+{
+	t_list	*dup;
+	size_t	ret;
+
+	dup = list;
+	ret = 0;
+	while (dup)
+	{
+		ret += ((t_file_info *)dup->content)->stat.st_blocks;
+		dup = dup->next;
+	}
+	return (ret);
+}
 
 void	ls_print_normal(t_list *list, t_flag flags)
 {
@@ -27,16 +42,26 @@ void	ls_print_ll(t_list *list, t_flag flags)
 	const char	ln_set = flags & FLAG_LN;
 	char		*buff;
 
-	ft_printf("total %zu\n", /*number of blocks*/);
+	ft_printf("total %zu\n", count_blocks(list));
 	while (list)
 	{
 		f = *(t_file_info *)list->content;
 		print_permissions(f.stat.st_mode);
 		ft_printf("  %2hu", f.stat.st_nlink);
 		if (!(flags & FLAG_LG))
-			ft_printf("  %8s", ln_set ? f.passwd.pw_uid : f.passwd.pw_name);
+		{
+			if (ln_set || !f.passwd.pw_name)
+				ft_printf("  %10u", f.passwd.pw_uid);
+			else
+				ft_printf("  %10s", f.passwd.pw_name);
+		}
 		if (!(flags & FLAG_LO))
-			ft_printf("  %8s", ln_set ? f.group.gr_gid : f.group.gr_name);
+		{
+			if (ln_set || !f.group.gr_name)
+				ft_printf("  %10u", f.group.gr_name);
+			else
+				ft_printf("  %10s", f.group.gr_gid);
+		}
 		ft_printf("  %8zu", f.stat.st_size);
 		if (flags & FLAG_LC)
 			print_time(f.stat.st_ctimespec.tv_sec);

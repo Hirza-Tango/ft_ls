@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   print_permissions.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
+/*   By: dslogrov <dslogrov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 15:38:37 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/06/24 15:59:01 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/06/26 17:29:28 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <sys/stat.h>
+#include <ft_ls.h>
 
 static char	get_type(mode_t mode)
 {
