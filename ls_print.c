@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 15:06:41 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/06/27 13:36:02 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/06/27 17:07:48 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ size_t	count_blocks(t_list *list)
 	return (ret);
 }
 
-void	ls_print_normal(t_list *list, t_flag flags)
+void	ls_print_normal(t_list *list/*, t_flag flags*/)
 {
 	while (list)
 	{
@@ -40,7 +40,7 @@ void	ls_print_ll(t_list *list, t_flag flags)
 {
 	t_file_info	f;
 	const char	ln_set = flags & FLAG_LN;
-	char		*buff;
+	//char		*buff;
 
 	ft_printf("total %zu\n", count_blocks(list));
 	while (list)
@@ -51,18 +51,18 @@ void	ls_print_ll(t_list *list, t_flag flags)
 		if (!(flags & FLAG_LG))
 		{
 			if (ln_set || !f.passwd.pw_name)
-				ft_printf("  %10u", f.passwd.pw_uid);
+				ft_printf("  %10u", f.stat.st_uid);
 			else
 				ft_printf("  %10s", f.passwd.pw_name);
 		}
 		if (!(flags & FLAG_LO))
 		{
 			if (ln_set || !f.group.gr_name)
-				ft_printf("  %10u", f.group.gr_name);
+				ft_printf("  %10u", f.stat.st_gid);
 			else
-				ft_printf("  %10s", f.group.gr_gid);
+				ft_printf("  %10s", f.group.gr_name);
 		}
-		ft_printf("  %8zu", f.stat.st_size);
+		ft_printf("  %8lld", f.stat.st_size);
 		if (flags & FLAG_LC)
 			print_time(f.stat.st_ctimespec.tv_sec);
 		else if (flags & FLAG_LU)
@@ -72,15 +72,17 @@ void	ls_print_ll(t_list *list, t_flag flags)
 		else
 			print_time(f.stat.st_mtimespec.tv_sec);
 		ft_printf(" %s", f.dirent.d_name);
-		if (f.stat.st_mode & S_IFLNK)
+		
+		/*if (f.stat.st_mode & S_IFLNK)
 		{
 			buff = (char *)malloc(f.stat.st_size + 1);
 			readlink(f.path, buff, f.stat.st_size);
 			//handle error
 			buff[f.stat.st_size] = 0;
-			ft_printf(" -> %s", buff);
+			printf(" -> %s\n", buff);
 			free(buff);
-		}
+		}*/
+		ft_putchar('\n');
 		list = list->next;
 	}
 }

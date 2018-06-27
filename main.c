@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/21 16:45:11 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/06/22 17:12:51 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/06/27 17:08:31 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	main(int argc, char const *argv[])
 	if (argc < 2)
 		return (1);
 	current = 1;
+	flags = 0;
 	if (*argv[1] == '-')
 	{
 		argument = (char *)argv[1];

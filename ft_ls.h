@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/21 16:24:11 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/06/27 13:35:26 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/06/27 14:07:27 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,9 +89,9 @@ int		compare_uu(const t_file_info *a, const t_file_info *b);
 int		compare_us(const t_file_info *a, const t_file_info *b);
 int		compare_lt(const t_file_info *a, const t_file_info *b);
 
-void	ls_print_normal(t_list *list, t_flag flags);
+void	ls_print_normal(t_list *list/*, t_flag flags*/);
 void	ls_print_ll(t_list *list, t_flag flags);
-void	sort_file_list(t_list **list, t_flag flags, const char *location);
+void	sort_file_list(t_list **list, t_flag flags);
 void	set_flags(t_flag *settings, char flag);
 void	ft_ls(const char *location, t_flag flags);
 void	print_permissions(mode_t mode);

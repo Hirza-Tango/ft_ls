@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 14:55:11 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/06/27 13:35:29 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/06/27 17:13:43 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ int		compare_default(const t_file_info *a, const t_file_info *b)
 	return (ft_strcmp(a->dirent.d_name, b->dirent.d_name));
 }
 
-void	sort_file_list(t_list **list, t_flag flags, const char *location)
+void	sort_file_list(t_list **list, t_flag flags)
 {
 	const char reverse = flags & FLAG_LR;
-	
+
 	if (flags & FLAG_LF)
 		return ;
 	if (flags & FLAG_LT)

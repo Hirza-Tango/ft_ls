@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 16:23:34 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/06/27 13:35:56 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/06/27 16:27:46 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void		print_time(time_t secs)
 	const char	*str = ctime(&secs);
 
 	ft_printf(" %.2s", str + 8);
-	ft_printf(" %.3s", str + 5);
+	ft_printf(" %.3s", str + 4);
 	if (get_time_difference(secs))
 		ft_printf("  %.4s", str + 20);
 	else
