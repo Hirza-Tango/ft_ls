@@ -6,8 +6,8 @@ CFLAGS= -Wall -Wextra -Werror -I. $(DEPS:%=-I %) -Ofast
 CFILES=	ft_ls.c			list_sorting.c ls_print.c main.c print_permissions.c \
 		print_time.c	set_flags.c		compare_dirent.c
 
-$(NAME): $(ARCHIVES) $(CFILES)
-	@$(CC) $(CFLAGS) $^ -o $@
+$(NAME): $(CFILES) $(ARCHIVES)
+	$(CC) $(CFLAGS) $^ -o $@
 
 $(ARCHIVES):
 	@$(MAKE) -C $(dir $@)
