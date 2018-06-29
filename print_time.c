@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 16:23:34 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/06/27 16:27:46 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/06/29 12:18:14 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 static int	get_time_difference(time_t then)
 {
-	time_t	now = time(NULL);
-	if (now - (time_t)60*60*24*30.42*6 > then)
+	const time_t	now = time(NULL);
+
+	if (now - (time_t)60 * 60 * 24 * 30.42 * 6 > then)
 		return (1);
 	return (0);
-	//TODO: non-naïve time difference
 }
 
 void		print_time(time_t secs)

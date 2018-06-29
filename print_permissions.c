@@ -6,36 +6,38 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 15:38:37 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/06/27 13:35:58 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/06/29 17:03:10 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ft_ls.h>
 
-static char	get_type(mode_t mode)
+static char	get_type_permission(mode_t mode)
 {
-	if (mode & S_IFIFO)
+	const mode_t	type = mode & S_IFMT;
+	
+	if (type == S_IFIFO)
 		return ('p');
-	else if (mode & S_IFCHR)
+	else if (type == S_IFCHR)
 		return ('c');
-	else if (mode & S_IFDIR)
+	else if (type == S_IFDIR)
 		return ('d');
-	else if (mode & S_IFBLK)
+	else if (type == S_IFBLK)
 		return ('b');
-	else if (mode & S_IFREG)
+	else if (type == S_IFREG)
 		return ('-');
-	else if (mode & S_IFLNK)
+	else if (type == S_IFLNK)
 		return ('l');
-	else if (mode & S_IFSOCK)
+	else if (type == S_IFSOCK)
 		return ('s');
-	else if (mode & S_IFWHT)
+	else if (type == S_IFWHT)
 		return ('w');
-	exit (-1);
+	exit(-1);
 }
 
 void		print_permissions(mode_t mode)
 {
-	ft_putchar(get_type(mode));
+	ft_putchar(get_type_permission(mode));
 	mode & S_IRUSR ? ft_putchar('r') : ft_putchar('-');
 	mode & S_IWUSR ? ft_putchar('w') : ft_putchar('-');
 	if (mode & S_ISUID)

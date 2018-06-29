@@ -7,7 +7,7 @@ CFILES=	ft_ls.c			list_sorting.c ls_print.c main.c print_permissions.c \
 		print_time.c	set_flags.c		compare_dirent.c
 
 $(NAME): $(CFILES) $(ARCHIVES)
-	$(CC) $(CFLAGS) $^ -o $@
+	@$(CC) $(CFLAGS) $^ -o $@
 
 $(ARCHIVES):
 	@$(MAKE) -C $(dir $@)

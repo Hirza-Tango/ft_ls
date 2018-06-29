@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/21 16:24:11 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/06/27 14:07:27 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/06/29 17:05:52 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,31 +70,32 @@
 # define FLAG_LW (t_flag)(1ULL << 37)
 # define FLAG_LX (t_flag)(1ULL << 38)
 
-#define pass (void)0
-typedef unsigned long long int t_flag;
-typedef struct	s_file_info
+typedef __uint64_t	t_flag;
+
+typedef struct		s_file_info
 {
 	char			*path;
 	struct stat		stat;
 	struct dirent	dirent;
 	struct passwd	passwd;
 	struct group	group;
-	//char			*xattr;
-}				t_file_info;
+}					t_file_info;
 
-int		compare_default(const t_file_info *a, const t_file_info *b);
-int		compare_lc(const t_file_info *a, const t_file_info *b);
-int		compare_lu(const t_file_info *a, const t_file_info *b);
-int		compare_uu(const t_file_info *a, const t_file_info *b);
-int		compare_us(const t_file_info *a, const t_file_info *b);
-int		compare_lt(const t_file_info *a, const t_file_info *b);
+int					compare_default(const t_file_info *a, const t_file_info *b);
+int					compare_lc(const t_file_info *a, const t_file_info *b);
+int					compare_lu(const t_file_info *a, const t_file_info *b);
+int					compare_uu(const t_file_info *a, const t_file_info *b);
+int					compare_us(const t_file_info *a, const t_file_info *b);
+int					compare_lt(const t_file_info *a, const t_file_info *b);
 
-void	ls_print_normal(t_list *list/*, t_flag flags*/);
-void	ls_print_ll(t_list *list, t_flag flags);
-void	sort_file_list(t_list **list, t_flag flags);
-void	set_flags(t_flag *settings, char flag);
-void	ft_ls(const char *location, t_flag flags);
-void	print_permissions(mode_t mode);
-void	print_time(time_t secs);
+void				ls_print_normal(const t_list *list, t_flag flags);
+void				ls_print_ll(const t_list *list, t_flag flags);
+void				ls_print_ll_one(t_file_info f, t_flag flags);
+void				sort_file_list(t_list **list, t_flag flags);
+void				set_flags(t_flag *settings, char flag);
+void				ft_ls(const char *location, t_flag flags);
+void				print_permissions(mode_t mode);
+void				print_time(time_t secs);
+char				get_type_print(mode_t mode);
 
 #endif
