@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/21 17:24:06 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/06/29 12:30:05 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/07/02 16:22:35 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static t_flag	get_flag4(char flag)
 	else if (flag == 'x')
 		return (FLAG_LX);
 	else
-		return (0);
+		exit(1);
 }
 
 static t_flag	get_flag3(char flag)
