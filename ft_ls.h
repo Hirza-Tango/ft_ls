@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/21 16:24:11 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/06/29 17:05:52 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/07/03 16:35:55 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <string.h>
+
+#pragma GCC poison printf
 
 # define FLAG_LL (t_flag)(1ULL << 0)
 # define FLAG_UR (t_flag)(1ULL << 1)

@@ -6,16 +6,16 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 15:06:41 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/06/29 17:05:27 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/07/03 15:38:03 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ft_ls.h>
 
-char		get_type_print(mode_t mode)
+char			get_type_print(mode_t mode)
 {
 	const mode_t type = mode & S_IFMT;
-	
+
 	if (type == S_IFDIR)
 		return ('/');
 	if (type == S_IFLNK)
@@ -102,7 +102,8 @@ void			ls_print_ll(const t_list *list, t_flag flags)
 	t_list	*dup;
 	size_t	blocks;
 
-	dup = (t_list *)list;
+	if (!(dup = (t_list *)list))
+		return ;
 	blocks = 0;
 	while (dup)
 	{
