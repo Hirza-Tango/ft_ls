@@ -6,21 +6,39 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/22 13:40:51 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/07/04 11:46:09 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/07/04 13:24:25 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ft_ls.h>
 
-static void	ft_fileinfodel(void *info, size_t len)
+int					fill_info(const char *name, const char *path,
+	t_file_info *info)
+{
+	errno = 0;
+	info->name = ft_strdup(name);
+	info->path = (char *)path;
+	lstat(info->path, &(info->stat));
+	info->passwd = *getpwuid((info->stat.st_uid));
+	info->group = *getgrgid((info->stat.st_gid));
+	if (errno)
+	{
+		error(name);
+		return (1);
+	}
+	return (0);
+}
+
+static void			ft_fileinfodel(void *info, size_t len)
 {
 	free(((t_file_info *)info)->path);
+	free(((t_file_info *)info)->name);
 	free(info);
 	info = NULL;
 	(void)len;
 }
 
-static char	*get_path(const char *location, const char *name)
+static const char	*get_path(const char *location, const char *name)
 {
 	char			*ret;
 	const size_t	size = ft_strlen(location) + ft_strlen(name) + 2;
@@ -32,64 +50,58 @@ static char	*get_path(const char *location, const char *name)
 	return (ret);
 }
 
-t_list		*get_file_list(const char *location, t_flag flags)
+t_list				*get_file_list(const char *location, t_flag flags)
 {
 	const DIR		*dir_id = opendir(location);
-	struct dirent	*entry;
+	struct dirent	*ent;
 	t_file_info		info;
 	t_list			*list;
 
 	if (!dir_id)
 	{
-		error(NULL);
+		error(location);
 		exit(2);
 	}
 	list = NULL;
 	errno = 0;
-	while ((entry = readdir((DIR *)dir_id)))
+	while ((ent = readdir((DIR *)dir_id)))
 	{
-		if (flags & FLAG_LA || entry->d_name[0] != '.')
-		{
-			info.dirent = *entry;
-			info.path = get_path(location, entry->d_name);
-			lstat(info.path, &(info.stat));
-			info.passwd = *getpwuid((info.stat.st_uid));
-			info.group = *getgrgid((info.stat.st_gid));
-			if (!errno)
+		if (flags & FLAG_LA || ent->d_name[0] != '.')
+			if (!fill_info(ent->d_name, get_path(location, ent->d_name), &info))
 				ft_lstappend(&list, ft_lstnew(&info, sizeof(t_file_info)));
-			else
-				error(location);
-		}
+		errno = 0;
 	}
+	if (errno)
+		error(location);
 	closedir((DIR *)dir_id);
 	return (list);
 }
 
-void		ft_ls(const char *location, t_flag flags)
+void				ft_ls(const char *loc, t_flag flags)
 {
-	t_list		*list;
-	t_file_info	info;
-	t_list		*dup;
+	const t_list	*list = sort_file_list(get_file_list(loc, flags), flags);
+	t_file_info		info;
+	t_list			*dup;
 
-	list = get_file_list(location, flags);
-	sort_file_list(&list, flags);
+	fill_info(loc, ft_strdup(loc), &info);
+	if (flags & FLAG_LL && (info.stat.st_mode & S_IFMT) == S_IFLNK)
+		return ((void)ls_print_ll_one(info, flags));
 	if (flags & FLAG_LL)
 		ls_print_ll(list, flags);
 	else
 		ls_print_normal(list, flags);
-	dup = list;
+	dup = (t_list *)list;
 	if (flags & FLAG_UR)
 		while (dup)
 		{
 			info = *((t_file_info *)dup->content);
 			if ((info.stat.st_mode & S_IFMT) == S_IFDIR &&
-				ft_strcmp(info.dirent.d_name, ".") &&
-				ft_strcmp(info.dirent.d_name, ".."))
+				ft_strcmp(info.name, ".") && ft_strcmp(info.name, ".."))
 			{
 				ft_printf("\n%s:\n", info.path);
 				ft_ls(info.path, flags);
 			}
 			dup = dup->next;
 		}
-	ft_lstdel(&list, &ft_fileinfodel);
+	ft_lstdel((t_list **)(&list), &ft_fileinfodel);
 }

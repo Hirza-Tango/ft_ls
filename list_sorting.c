@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 14:55:11 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/07/03 16:33:24 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/07/04 13:11:24 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,34 +14,34 @@
 
 int		compare_default(const t_file_info *a, const t_file_info *b)
 {
-	return (-ft_strcmp(a->dirent.d_name, b->dirent.d_name));
+	return (-ft_strcmp(a->name, b->name));
 }
 
-void	sort_file_list(t_list **list, t_flag flags)
+t_list	*sort_file_list(t_list *lst, t_flag flags)
 {
-	const char reverse = flags & FLAG_LR;
+	const char rev = flags & FLAG_LR;
 
 	if (flags & FLAG_LF)
-		return ;
+		return (lst);
 	if (flags & FLAG_LT)
 	{
 		if (flags & FLAG_LC)
-			ft_lstsort(list, (int (*)(const void *, const void *))&compare_lc,
-				reverse);
+			ft_lstsort(&lst, (int (*)(const void *, const void *))&compare_lc,
+				rev);
 		else if (flags & FLAG_LU)
-			ft_lstsort(list, (int (*)(const void *, const void *))&compare_lu,
-				reverse);
+			ft_lstsort(&lst, (int (*)(const void *, const void *))&compare_lu,
+				rev);
 		else if (flags & FLAG_UU)
-			ft_lstsort(list, (int (*)(const void *, const void *))&compare_uu,
-				reverse);
+			ft_lstsort(&lst, (int (*)(const void *, const void *))&compare_uu,
+				rev);
 		else
-			ft_lstsort(list, (int (*)(const void *, const void *))&compare_lt,
-				reverse);
+			ft_lstsort(&lst, (int (*)(const void *, const void *))&compare_lt,
+				rev);
 	}
 	else if (flags & FLAG_US)
-		ft_lstsort(list, (int (*)(const void *, const void *))&compare_us,
-			reverse);
+		ft_lstsort(&lst, (int (*)(const void *, const void *))&compare_us, rev);
 	else
-		ft_lstsort(list, (int (*)(const void *, const void *))&compare_default,
-			reverse);
+		ft_lstsort(&lst, (int (*)(const void *, const void *))&compare_default,
+			rev);
+	return (lst);
 }

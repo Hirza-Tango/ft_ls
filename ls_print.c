@@ -6,13 +6,33 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 15:06:41 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/07/04 11:33:23 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/07/04 13:02:17 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ft_ls.h>
 
-char			get_type_print(mode_t mode)
+static void		print_id(t_file_info f, t_flag flags)
+{
+	const char	ln_set = flags & FLAG_LN;
+
+	if (!(flags & FLAG_LG))
+	{
+		if (ln_set || !f.passwd.pw_name)
+			ft_printf("  %10u", f.stat.st_uid);
+		else
+			ft_printf("  %10s", f.passwd.pw_name);
+	}
+	if (!(flags & FLAG_LO))
+	{
+		if (ln_set || !f.group.gr_name)
+			ft_printf("  %10u", f.stat.st_gid);
+		else
+			ft_printf("  %10s", f.group.gr_name);
+	}
+}
+
+static char		get_type_print(mode_t mode)
 {
 	const mode_t type = mode & S_IFMT;
 
@@ -38,7 +58,7 @@ void			ls_print_normal(const t_list *list, t_flag flags)
 	dup = (t_list *)list;
 	while (dup)
 	{
-		ft_printf("%s\n", ((t_file_info *)dup->content)->dirent.d_name);
+		ft_printf("%s\n", ((t_file_info *)dup->content)->name);
 		if (flags & FLAG_UF)
 			ft_putchar(
 				get_type_print(((t_file_info *)dup->content)->stat.st_mode));
@@ -51,40 +71,19 @@ void			ls_print_normal(const t_list *list, t_flag flags)
 
 void			ls_print_ll_one(t_file_info f, t_flag flags)
 {
-	const char	ln_set = flags & FLAG_LN;
 	char		*buff;
 
 	print_permissions(f.stat.st_mode);
 	ft_printf("  %2hu", f.stat.st_nlink);
-	if (!(flags & FLAG_LG))
-	{
-		if (ln_set || !f.passwd.pw_name)
-			ft_printf("  %10u", f.stat.st_uid);
-		else
-			ft_printf("  %10s", f.passwd.pw_name);
-	}
-	if (!(flags & FLAG_LO))
-	{
-		if (ln_set || !f.group.gr_name)
-			ft_printf("  %10u", f.stat.st_gid);
-		else
-			ft_printf("  %10s", f.group.gr_name);
-	}
 	ft_printf("  %8lld", f.stat.st_size);
-	if (flags & FLAG_LC)
-		print_time(f.stat.st_ctimespec.tv_sec);
-	else if (flags & FLAG_LU)
-		print_time(f.stat.st_atimespec.tv_sec);
-	else if (flags & FLAG_UU)
-		print_time(f.stat.st_birthtimespec.tv_sec);
-	else
-		print_time(f.stat.st_mtimespec.tv_sec);
-	ft_printf(" %s", f.dirent.d_name);
+	print_time(f.stat, flags);
+	print_id(f, flags);
+	ft_printf(" %s", f.name);
 	if ((f.stat.st_mode & S_IFMT) == S_IFLNK)
 	{
 		buff = (char *)malloc(f.stat.st_size + 1);
 		if (readlink(f.path, buff, f.stat.st_size) < 0)
-			error(f.dirent.d_name);
+			error(f.name);
 		buff[f.stat.st_size] = 0;
 		ft_printf(" -> %s", buff);
 		free(buff);
