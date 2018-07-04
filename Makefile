@@ -20,6 +20,7 @@ build/%.o: %.c ft_ls.h
 all: $(NAME);
 
 clean:
+	@rm -rf build
 	@for dep in $(DEPS); do	$(MAKE) -C $$dep $@; done
  
 fclean: clean
