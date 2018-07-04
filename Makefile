@@ -4,7 +4,7 @@ DEPS=libft ft_printf
 ARCHIVES=libft/libft.a ft_printf/libftprintf.a
 CFLAGS= -Wall -Wextra -Werror -I. $(DEPS:%=-I %) -Ofast
 CFILES=	ft_ls.c			list_sorting.c ls_print.c main.c print_permissions.c \
-		print_time.c	set_flags.c		compare_dirent.c
+		print_time.c	set_flags.c		compare_dirent.c	errors.c
 
 $(NAME): $(CFILES) $(ARCHIVES)
 	@$(CC) $(CFLAGS) $^ -o $@

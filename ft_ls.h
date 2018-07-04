@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/21 16:24:11 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/07/03 16:35:55 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/07/04 11:43:29 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <grp.h>
 # include <sys/xattr.h>
 # include <time.h>
+# include <errno.h>
 
 # include <stdio.h>
 # include <unistd.h>
@@ -99,5 +100,6 @@ void				ft_ls(const char *location, t_flag flags);
 void				print_permissions(mode_t mode);
 void				print_time(time_t secs);
 char				get_type_print(mode_t mode);
+void				error(const char *filename);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/21 16:45:11 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/07/03 15:36:56 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/07/04 11:45:46 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,5 @@ int	main(int argc, char const *argv[])
 			if (current++ == argc - 1)
 				ft_printf("\n");
 		}
-	return (0);
+	return (errno ? 1 : 0);
 }

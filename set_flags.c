@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/21 17:24:06 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/07/03 13:55:27 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/07/04 11:54:33 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,10 @@ static t_flag	get_flag4(char flag)
 		return (FLAG_LW);
 	else if (flag == 'x')
 		return (FLAG_LX);
-	else
-		exit(1);
+	ft_printf("ls: illegal option -- %c\nusage: ", flag);
+	ft_printf("ls [-ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1] [file ...]\n");
+	errno = 1;
+	exit(1);
 }
 
 static t_flag	get_flag3(char flag)

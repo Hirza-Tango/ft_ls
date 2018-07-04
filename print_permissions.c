@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 15:38:37 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/06/29 17:03:10 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/07/04 11:47:45 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static char	get_type_permission(mode_t mode)
 {
 	const mode_t	type = mode & S_IFMT;
-	
+
 	if (type == S_IFIFO)
 		return ('p');
 	else if (type == S_IFCHR)
@@ -32,7 +32,7 @@ static char	get_type_permission(mode_t mode)
 		return ('s');
 	else if (type == S_IFWHT)
 		return ('w');
-	exit(-1);
+	return ('?');
 }
 
 void		print_permissions(mode_t mode)

@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/22 13:40:51 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/07/03 15:51:35 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/07/04 11:46:09 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,12 @@ t_list		*get_file_list(const char *location, t_flag flags)
 	t_list			*list;
 
 	if (!dir_id)
+	{
+		error(NULL);
 		exit(2);
+	}
 	list = NULL;
-	//handle
+	errno = 0;
 	while ((entry = readdir((DIR *)dir_id)))
 	{
 		if (flags & FLAG_LA || entry->d_name[0] != '.')
@@ -50,10 +53,12 @@ t_list		*get_file_list(const char *location, t_flag flags)
 			info.dirent = *entry;
 			info.path = get_path(location, entry->d_name);
 			lstat(info.path, &(info.stat));
-			//handle
 			info.passwd = *getpwuid((info.stat.st_uid));
 			info.group = *getgrgid((info.stat.st_gid));
-			ft_lstappend(&list, ft_lstnew(&info, sizeof(t_file_info)));
+			if (!errno)
+				ft_lstappend(&list, ft_lstnew(&info, sizeof(t_file_info)));
+			else
+				error(location);
 		}
 	}
 	closedir((DIR *)dir_id);
