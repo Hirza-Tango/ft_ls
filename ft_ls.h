@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/21 16:24:11 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/07/04 13:22:05 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/07/18 16:54:45 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,6 @@ typedef struct		s_file_info
 	char			*path;
 	char			*name;
 	struct stat		stat;
-	struct passwd	passwd;
-	struct group	group;
 }					t_file_info;
 
 int					compare_default(const t_file_info *a, const t_file_info *b);

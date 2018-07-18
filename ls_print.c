@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 15:06:41 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/07/04 13:56:26 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/07/18 17:40:30 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,17 @@ static void		print_id(t_file_info f, t_flag flags)
 
 	if (!(flags & FLAG_LG))
 	{
-		if (ln_set || !f.passwd.pw_name)
-			ft_printf("  %10u", f.stat.st_uid);
+		if (ln_set)
+			ft_printf("  %-10u", f.stat.st_uid);
 		else
-			ft_printf("  %10s", f.passwd.pw_name);
+			ft_printf("  %-10s", getpwuid(f.stat.st_uid)->pw_name);
 	}
 	if (!(flags & FLAG_LO))
 	{
-		if (ln_set || !f.group.gr_name)
-			ft_printf("  %10u", f.stat.st_gid);
+		if (ln_set)
+			ft_printf("  %-10u", f.stat.st_gid);
 		else
-			ft_printf("  %10s", f.group.gr_name);
+			ft_printf("  %-10s", getgrgid(f.stat.st_gid)->gr_name);
 	}
 }
 
@@ -74,7 +74,7 @@ void			ls_print_ll_one(t_file_info f, t_flag flags)
 	char		*buff;
 
 	print_permissions(f.stat.st_mode);
-	ft_printf("  %2hu", f.stat.st_nlink);
+	ft_printf("  %-2hu", f.stat.st_nlink);
 	print_id(f, flags);
 	ft_printf("  %8lld", f.stat.st_size);
 	print_time(f.stat, flags);

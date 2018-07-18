@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/22 13:40:51 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/07/18 16:13:52 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/07/18 16:54:41 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ int					fill_info(const char *name, const char *path,
 	info->name = ft_strdup(name);
 	info->path = (char *)path;
 	lstat(info->path, &(info->stat));
-	info->passwd = *getpwuid((info->stat.st_uid));
-	info->group = *getgrgid((info->stat.st_gid));
 	if (errno)
 	{
 		error(name);
