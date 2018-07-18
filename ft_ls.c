@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/22 13:40:51 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/07/04 13:24:25 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/07/18 16:13:52 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ t_list				*get_file_list(const char *location, t_flag flags)
 	if (!dir_id)
 	{
 		error(location);
-		exit(2);
+		return (NULL);
 	}
 	list = NULL;
 	errno = 0;
@@ -90,6 +90,8 @@ void				ft_ls(const char *loc, t_flag flags)
 		ls_print_ll(list, flags);
 	else
 		ls_print_normal(list, flags);
+	free(info.name);
+	free(info.path);
 	dup = (t_list *)list;
 	if (flags & FLAG_UR)
 		while (dup)
