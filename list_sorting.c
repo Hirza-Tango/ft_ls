@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 14:55:11 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/07/04 13:11:24 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/07/18 14:19:12 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int		compare_default(const t_file_info *a, const t_file_info *b)
 {
-	return (-ft_strcmp(a->name, b->name));
+	return (ft_strcmp(a->name, b->name));
 }
 
 t_list	*sort_file_list(t_list *lst, t_flag flags)
