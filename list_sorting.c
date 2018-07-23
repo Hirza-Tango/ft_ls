@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 14:55:11 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/07/18 14:19:12 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/07/23 10:25:05 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,22 +26,22 @@ t_list	*sort_file_list(t_list *lst, t_flag flags)
 	if (flags & FLAG_LT)
 	{
 		if (flags & FLAG_LC)
-			ft_lstsort(&lst, (int (*)(const void *, const void *))&compare_lc,
+			ft_lstsort(&lst, (long (*)(const void *, const void *))&compare_lc,
 				rev);
 		else if (flags & FLAG_LU)
-			ft_lstsort(&lst, (int (*)(const void *, const void *))&compare_lu,
+			ft_lstsort(&lst, (long (*)(const void *, const void *))&compare_lu,
 				rev);
 		else if (flags & FLAG_UU)
-			ft_lstsort(&lst, (int (*)(const void *, const void *))&compare_uu,
+			ft_lstsort(&lst, (long (*)(const void *, const void *))&compare_uu,
 				rev);
 		else
-			ft_lstsort(&lst, (int (*)(const void *, const void *))&compare_lt,
+			ft_lstsort(&lst, (long (*)(const void *, const void *))&compare_lt,
 				rev);
 	}
 	else if (flags & FLAG_US)
-		ft_lstsort(&lst, (int (*)(const void *, const void *))&compare_us, rev);
+		ft_lstsort(&lst, (long (*)(const void *, const void *))&compare_us, rev);
 	else
-		ft_lstsort(&lst, (int (*)(const void *, const void *))&compare_default,
+		ft_lstsort(&lst, (long (*)(const void *, const void *))&compare_default,
 			rev);
 	return (lst);
 }
