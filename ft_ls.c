@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/22 13:40:51 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/07/24 15:38:43 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/07/24 16:41:33 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,13 +81,6 @@ void				ft_ls(const char *loc, t_flag flags)
 	t_file_info		info;
 	t_list			*dup;
 
-	fill_info(loc, ft_strdup(loc), &info);
-	if (flags & FLAG_LL && (info.stat.st_mode & S_IFMT) == S_IFLNK)
-		ls_print_ll_one(info, flags);
-	free(info.name);
-	free(info.path);
-	if (flags & FLAG_LL && (info.stat.st_mode & S_IFMT) == S_IFLNK)
-		return ;
 	list = sort_file_list(get_file_list(loc, flags), flags);
 	flags & FLAG_LL ? ls_print_ll(list, flags) : ls_print_normal(list, flags);
 	dup = (t_list *)list;

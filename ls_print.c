@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 15:06:41 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/07/18 17:40:30 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/07/24 16:40:16 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void			ls_print_ll_one(t_file_info f, t_flag flags)
 	}
 	if (flags & FLAG_UF)
 		ft_putchar(get_type_print(f.stat.st_mode));
-	else if (flags & FLAG_LP &&	(f.stat.st_mode & S_IFMT) == S_IFDIR)
+	else if (flags & FLAG_LP && (f.stat.st_mode & S_IFMT) == S_IFDIR)
 		ft_putchar('/');
 	ft_putchar('\n');
 }
