@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/21 16:24:11 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/07/24 11:28:20 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/07/24 15:50:39 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,14 @@ typedef struct		s_file_info
 	char			*name;
 	struct stat		stat;
 }					t_file_info;
+
+typedef struct		s_ls_spacing
+{
+	size_t			links;
+	size_t			passwd;
+	size_t			group;
+	size_t			size;
+}					t_ls_spacing;
 
 long				compare_default(const t_file_info *a, const t_file_info *b);
 long				compare_lc(const t_file_info *a, const t_file_info *b);
