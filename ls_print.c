@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 15:06:41 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/07/24 16:40:16 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/07/24 17:16:07 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void			ls_print_ll_one(t_file_info f, t_flag flags)
 	{
 		buff = (char *)malloc(f.stat.st_size + 1);
 		if (readlink(f.path, buff, f.stat.st_size) < 0)
-			error(f.name);
+			ft_error(f.name);
 		buff[f.stat.st_size] = 0;
 		ft_printf(" -> %s", buff);
 		free(buff);

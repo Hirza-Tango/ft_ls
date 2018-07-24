@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/22 13:40:51 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/07/24 16:41:33 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/07/24 17:15:54 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int					fill_info(const char *name, const char *path,
 	lstat(info->path, &(info->stat));
 	if (errno)
 	{
-		error(name);
+		ft_error(name);
 		return (1);
 	}
 	return (0);
@@ -57,7 +57,7 @@ t_list				*get_file_list(const char *location, t_flag flags)
 
 	if (!dir_id)
 	{
-		error(location);
+		ft_error(location);
 		return (NULL);
 	}
 	list = NULL;
@@ -70,7 +70,7 @@ t_list				*get_file_list(const char *location, t_flag flags)
 		errno = 0;
 	}
 	if (errno)
-		error(location);
+		ft_error(location);
 	closedir((DIR *)dir_id);
 	return (list);
 }
