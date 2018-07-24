@@ -6,13 +6,13 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 14:55:11 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/07/23 10:25:05 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/07/24 11:28:30 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ft_ls.h>
 
-int		compare_default(const t_file_info *a, const t_file_info *b)
+long	compare_default(const t_file_info *a, const t_file_info *b)
 {
 	return (ft_strcmp(a->name, b->name));
 }
