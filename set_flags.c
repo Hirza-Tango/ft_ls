@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/21 17:24:06 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/07/24 15:45:00 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/07/25 15:28:50 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,8 @@ static t_flag	get_flag(char flag)
 
 void			set_flags(t_flag *settings, char flag)
 {
+	if (flag == '-')
+		return ;
 	if (flag == '1' || flag == 'C' || flag == 'x' || flag == 'l')
 		*settings &= ~FLAG_1 & ~FLAG_UC & ~FLAG_LX & ~FLAG_LL;
 	else if (flag == 'c' || flag == 'u')
