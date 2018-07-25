@@ -6,37 +6,36 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/21 16:45:11 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/07/04 12:09:00 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/07/25 16:29:29 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ft_ls.h>
 
-int	main(int argc, char const *argv[])
+int	main(int argc, char *argv[])
 {
 	t_flag			flags;
-	short int		current;
 	char			*argument;
 
-	current = 1;
+	(void)(argv++ && argc);
 	flags = 0;
-	while (*argv[current] == '-' && current < argc)
+	while (*argv && **argv == '-' && argv[0][1])
 	{
-		argument = (char *)argv[current++];
+		argument = *(argv++);
 		while (*++argument)
 			set_flags(&flags, *argument);
 	}
-	if (current == argc)
+	if (!*argv)
 		ft_ls(".", flags);
-	else if (current == argc - 1)
-		ft_ls(argv[current], flags);
+	else if (!argv[1])
+		ft_ls(*argv, flags);
 	else
-		while (current < argc)
+		while (*argv)
 		{
-			ft_printf("%s:\n", argv[current]);
-			ft_ls(argv[current], flags);
-			if (current++ == argc - 1)
-				ft_printf("\n");
+			ft_printf("%s:\n", *argv);
+			ft_ls(*(argv++), flags);
+			if (*argv)
+				ft_putchar('\n');
 		}
 	return (errno ? 1 : 0);
 }
