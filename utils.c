@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_permissions.c                                :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/24 15:38:37 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/07/04 11:47:45 by dslogrov         ###   ########.fr       */
+/*   Created: 2018/07/25 14:40:17 by dslogrov          #+#    #+#             */
+/*   Updated: 2018/07/25 15:13:28 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,47 @@ void		print_permissions(mode_t mode)
 		mode & S_IXOTH ? ft_putchar('t') : ft_putchar('T');
 	else
 		mode & S_IXOTH ? ft_putchar('x') : ft_putchar('-');
+}
+
+static void	print_time_str(time_t secs)
+{
+	const char	*str = ctime(&secs);
+
+	ft_printf(" %.2s", str + 8);
+	ft_printf(" %.3s", str + 4);
+	if (time(NULL) - (time_t)(60 * 60 * 24 * 30.42 * 6) > secs)
+		ft_printf("  %.4s", str + 20);
+	else
+		ft_printf(" %.5s", str + 11);
+}
+
+void		print_time(struct stat s, t_flag flags)
+{
+	if (flags & FLAG_LC)
+		print_time_str(s.st_ctimespec.tv_sec);
+	else if (flags & FLAG_LU)
+		print_time_str(s.st_atimespec.tv_sec);
+	else if (flags & FLAG_UU)
+		print_time_str(s.st_birthtimespec.tv_sec);
+	else
+		print_time_str(s.st_mtimespec.tv_sec);
+}
+
+char		get_type_print(mode_t mode)
+{
+	const mode_t type = mode & S_IFMT;
+
+	if (type == S_IFDIR)
+		return ('/');
+	if (type == S_IFLNK)
+		return ('@');
+	if (type == S_IFSOCK)
+		return ('=');
+	if (type == S_IFWHT)
+		return ('%');
+	if (type == S_IFIFO)
+		return ('|');
+	if (mode & S_IXUSR)
+		return ('*');
+	return (0);
 }
