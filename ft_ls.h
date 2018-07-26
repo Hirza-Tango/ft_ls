@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/21 16:24:11 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/07/26 14:05:33 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/07/26 16:36:37 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,4 +110,6 @@ char				get_type_print(mode_t mode);
 int					fill_info(const char *name, const char *path,
 	t_file_info *info);
 void				ft_fileinfodel(void *info, size_t len);
+int					ft_isdir(const char *dir);
+int					ft_islnk(const char *dir);
 #endif
