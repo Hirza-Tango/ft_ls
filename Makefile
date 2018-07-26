@@ -3,7 +3,7 @@ CC=gcc
 DEPS=libft ft_printf
 ARCHIVES=libft/libft.a ft_printf/libftprintf.a
 CFLAGS= -Wall -Wextra -Werror -I. $(DEPS:%=-I %) -Ofast
-CFILES=	ft_ls.c			list_sorting.c 		ls_print.c	 main.c  utils.c	\
+CFILES=	ft_ls.c			list_sorting.c 		ls_print.c	 main.c  ls_utils.c	\
 		set_flags.c		compare_dirent.c	errors.c
 
 OBJ=$(CFILES:%.c=build/%.o)

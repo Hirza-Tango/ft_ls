@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 15:06:41 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/07/25 15:20:41 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/07/26 11:49:58 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ void			ls_print_ll_one(t_file_info f, t_flag flags, t_ls_spacing space)
 	ft_putchar('\n');
 }
 
-void			ls_print_ll(const t_list *list, t_flag flags)
+void			ls_print_ll(const t_list *list, t_flag flags, int print_blocks)
 {
 	t_list			*dup;
 	size_t			blocks;
@@ -116,7 +116,8 @@ void			ls_print_ll(const t_list *list, t_flag flags)
 		ls_precount(((t_file_info *)dup->content)->stat, &blocks, &sp, flags);
 		dup = dup->next;
 	}
-	ft_printf("total %zu\n", blocks);
+	if (print_blocks)
+		ft_printf("total %zu\n", blocks);
 	while (list)
 	{
 		ls_print_ll_one(*(t_file_info *)list->content, flags, sp);

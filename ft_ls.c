@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/22 13:40:51 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/07/24 17:15:54 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/07/26 13:22:09 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int					fill_info(const char *name, const char *path,
 	return (0);
 }
 
-static void			ft_fileinfodel(void *info, size_t len)
+void				ft_fileinfodel(void *info, size_t len)
 {
 	free(((t_file_info *)info)->path);
 	free(((t_file_info *)info)->name);
@@ -82,7 +82,7 @@ void				ft_ls(const char *loc, t_flag flags)
 	t_list			*dup;
 
 	list = sort_file_list(get_file_list(loc, flags), flags);
-	flags & FLAG_LL ? ls_print_ll(list, flags) : ls_print_normal(list, flags);
+	flags & FLAG_LL ? ls_print_ll(list, flags, 1) : ls_print_normal(list, flags);
 	dup = (t_list *)list;
 	if (flags & FLAG_UR)
 		while (dup)
