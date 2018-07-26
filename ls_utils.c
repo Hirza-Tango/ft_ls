@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/25 14:40:17 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/07/26 13:41:07 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/07/26 14:57:09 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,13 @@ static void	print_time_str(time_t secs)
 	ft_printf(" %.3s", str + 4);
 	if (time(NULL) - (time_t)(60 * 60 * 24 * 30.42 * 6) > secs)
 		ft_printf("  %.4s", str + 20);
+	else if (time(NULL) < secs)
+	{
+		if (str[20] == ' ')
+			ft_printf("  %.5s", str + 24);
+		else
+			ft_printf("  %.4s", str + 20);
+	}
 	else
 		ft_printf(" %.5s", str + 11);
 }
