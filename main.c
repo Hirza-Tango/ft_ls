@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/21 16:45:11 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/07/26 16:39:18 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/07/26 17:06:45 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,9 +96,12 @@ int			main(int argc, char *argv[])
 	flags = 0;
 	while (*argv && **argv == '-' && argv[0][1])
 	{
-		argument = *(argv++);
-		if (argument[1] == '-')
+		if (!ft_strcmp(*argv, "--"))
+		{
+			argv++;
 			break ;
+		}
+		argument = *(argv++);
 		while (*++argument)
 			set_flags(&flags, *argument);
 	}
