@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 15:06:41 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/07/26 11:49:58 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/07/26 14:05:40 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static void		ls_precount(struct stat s, size_t *blocks, t_ls_spacing *space,
 	space->size = MAX(space->size, ft_declen(s.st_size));
 }
 
-void			ls_print_normal(const t_list *list, t_flag flags)
+void			ls_print_norm(const t_list *list, t_flag flags)
 {
 	t_list	*dup;
 

@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/21 16:45:11 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/07/26 13:57:32 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/07/26 14:05:55 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,6 @@ static int	ft_isdir(const char *dir)
 		return (1);
 	return (0);
 }
-
-/*static int	ft_islnk(const char *dir)
-{
-	struct stat	s;
-
-	if (lstat(dir, &s))
-		return (-1);
-	if ((s.st_mode & S_IFMT) == S_IFLNK)
-		return (1);
-	return (0);
-}*/
 
 static int	entry_list(char **argv, t_flag flags)
 {
@@ -53,7 +42,7 @@ static int	entry_list(char **argv, t_flag flags)
 	if (flags & FLAG_LL)
 		ls_print_ll(lst, flags, 0);
 	else
-		ls_print_normal(lst, flags);
+		ls_print_norm(lst, flags);
 	if (!lst)
 		return (0);
 	ft_lstdel(&lst, ft_fileinfodel);
@@ -72,7 +61,7 @@ int			main(int argc, char *argv[])
 	{
 		argument = *(argv++);
 		if (argument[1] == '-')
-			break;
+			break ;
 		while (*++argument)
 			set_flags(&flags, *argument);
 	}
