@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/21 17:24:06 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/07/26 12:55:01 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/07/26 18:49:43 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,9 @@ void			set_flags(t_flag *settings, char flag)
 		*settings &= ~FLAG_UH & ~FLAG_UL & ~FLAG_UP;
 	if (flag == 'f')
 		*settings |= FLAG_LA;
-	if (flag == 'n' || flag == 'o')
+	if (flag == 'F' || flag == 'p')
+		*settings &= ~FLAG_LP & ~FLAG_UF;
+	if (flag == 'n' || flag == 'o' || flag == 'g')
 		*settings |= FLAG_LL;
 	*settings |= get_flag(flag);
 }

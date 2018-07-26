@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/25 14:40:17 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/07/26 14:57:09 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/07/26 18:36:16 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ char		get_type_print(mode_t mode)
 		return ('%');
 	if (type == S_IFIFO)
 		return ('|');
-	if (mode & S_IXUSR)
+	if (mode & S_IXUSR || mode & S_IXGRP || mode & S_IXOTH)
 		return ('*');
 	return (0);
 }

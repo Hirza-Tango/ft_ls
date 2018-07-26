@@ -6,7 +6,7 @@
 /*   By: dslogrov <dslogrove@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/24 15:06:41 by dslogrov          #+#    #+#             */
-/*   Updated: 2018/07/26 14:05:40 by dslogrov         ###   ########.fr       */
+/*   Updated: 2018/07/26 18:46:24 by dslogrov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,18 +59,20 @@ static void		ls_precount(struct stat s, size_t *blocks, t_ls_spacing *space,
 
 void			ls_print_norm(const t_list *list, t_flag flags)
 {
-	t_list	*dup;
+	t_list		*dup;
+	struct stat	s;
 
 	dup = (t_list *)list;
 	while (dup)
 	{
-		ft_printf("%s\n", ((t_file_info *)dup->content)->name);
-		if (flags & FLAG_UF)
+		s = ((t_file_info *)dup->content)->stat;
+		ft_printf("%s", ((t_file_info *)dup->content)->name);
+		if (flags & FLAG_UF && get_type_print(s.st_mode))
 			ft_putchar(
-				get_type_print(((t_file_info *)dup->content)->stat.st_mode));
-		else if (flags & FLAG_LP &&
-			(((t_file_info *)dup->content)->stat.st_mode & S_IFMT) == S_IFDIR)
+				get_type_print(s.st_mode));
+		else if (flags & FLAG_LP && (s.st_mode & S_IFMT) == S_IFDIR)
 			ft_putchar('/');
+		ft_putchar('\n');
 		dup = dup->next;
 	}
 }
@@ -85,6 +87,8 @@ void			ls_print_ll_one(t_file_info f, t_flag flags, t_ls_spacing space)
 	ft_printf("%*lld ", space.size, f.stat.st_size);
 	print_time(f.stat, flags);
 	ft_printf(" %s", f.name);
+	if (flags & FLAG_UF && get_type_print(f.stat.st_mode))
+		ft_putchar(get_type_print(f.stat.st_mode));
 	if ((f.stat.st_mode & S_IFMT) == S_IFLNK)
 	{
 		buff = (char *)malloc(f.stat.st_size + 1);
@@ -94,8 +98,6 @@ void			ls_print_ll_one(t_file_info f, t_flag flags, t_ls_spacing space)
 		ft_printf(" -> %s", buff);
 		free(buff);
 	}
-	if (flags & FLAG_UF)
-		ft_putchar(get_type_print(f.stat.st_mode));
 	else if (flags & FLAG_LP && (f.stat.st_mode & S_IFMT) == S_IFDIR)
 		ft_putchar('/');
 	ft_putchar('\n');
