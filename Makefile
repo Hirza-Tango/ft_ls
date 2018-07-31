@@ -33,4 +33,4 @@ fclean::
 
 re:: fclean all
 
-.PHONY: clean fclean re all
+.PHONY: clean fclean re all $(REL_DEPS)
