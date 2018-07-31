@@ -1,33 +1,36 @@
 NAME=ft_ls
+DEPS=libft/libft.a ft_printf/libftprintf.a
+LIBFT_DIR=libft
+INCLUDES=$(LIBFT_DIR)/includes
+REL_DEPS=$(DEPS:%=$(LIBFT_DIR)/%)
 CC=gcc
-DEPS=libft ft_printf
-ARCHIVES=libft/libft.a ft_printf/libftprintf.a
-CFLAGS= -Wall -Wextra -Werror -I. $(DEPS:%=-I %) -Ofast
+CFLAGS=-c -Wall -Wextra -Werror -I $(INCLUDES) -I . -Ofast
 CFILES=	ft_ls.c			list_sorting.c 		ls_print.c	 main.c  ls_utils.c	\
-		set_flags.c		compare_dirent.c	errors.c	filetype.c			\
+		set_flags.c		compare_dirent.c	errors.c	filetype.c
 
 OBJ=$(CFILES:%.c=build/%.o)
 
-$(NAME): $(OBJ) $(ARCHIVES)
-	@$(CC) $(CFLAGS) $^ -o $@
+$(NAME): $(OBJ) $(REL_DEPS)
+	@ar rcs $(NAME) $(OBJ) $(REL_DEPS)
 
-$(ARCHIVES):
-	@$(MAKE) -C $(dir $@)
+$(REL_DEPS):
+	@make -C $(dir $@)
 
-build/%.o: %.c ft_ls.h
+build/%.o: %.c
 	@mkdir -p build
-	@$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) $< -o $@
 
 all: $(NAME);
 
-clean:
-	@rm -rf build
-	@for dep in $(DEPS); do	$(MAKE) -C $$dep $@; done
- 
-fclean: clean
+clean fclean re::
+	@for file in $(dir $(REL_DEPS)) ; do $(MAKE) -C $$file $@ ; done
+
+clean::
+	@rm -rf build/
+
+fclean::
 	@rm -rf $(NAME)
-	@for dep in $(DEPS); do	$(MAKE) -C $$dep $@; done
 
-re: fclean all
+re:: fclean all
 
-.PHONY: clean fclean re all $(ARCHIVES)
+.PHONY: clean fclean re all
