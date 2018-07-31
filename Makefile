@@ -4,21 +4,21 @@ LIBFT_DIR=libft
 INCLUDES=$(LIBFT_DIR)/includes
 REL_DEPS=$(DEPS:%=$(LIBFT_DIR)/%)
 CC=gcc
-CFLAGS=-c -Wall -Wextra -Werror -I $(INCLUDES) -I . -Ofast
+CFLAGS=-Wall -Wextra -Werror -I $(INCLUDES) -I . -Ofast
 CFILES=	ft_ls.c			list_sorting.c 		ls_print.c	 main.c  ls_utils.c	\
 		set_flags.c		compare_dirent.c	errors.c	filetype.c
 
 OBJ=$(CFILES:%.c=build/%.o)
 
 $(NAME): $(OBJ) $(REL_DEPS)
-	@ar rcs $(NAME) $(OBJ) $(REL_DEPS)
+	@gcc $(CFLAGS) $(OBJ) $(REL_DEPS) -o $(NAME)
 
 $(REL_DEPS):
 	@make -C $(dir $@)
 
 build/%.o: %.c
 	@mkdir -p build
-	@$(CC) $(CFLAGS) $< -o $@
+	@$(CC) -c $(CFLAGS) $< -o $@
 
 all: $(NAME);
 
